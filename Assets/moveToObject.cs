@@ -7,9 +7,15 @@ public class moveToObject : MonoBehaviour
 
     public Transform tf;
     public Rigidbody2D rb;
-    public float runSpeed = 5f;
+    public float runSpeed = 2f;
 
-    private bool inRange = false;
+    public bool inRange = false;
+    public bool inTrigger = false;
+
+    public SpriteRenderer renderer;
+
+    public Color standard;
+    public Color orange;
 
     void FixedUpdate()
     {
@@ -24,8 +30,10 @@ public class moveToObject : MonoBehaviour
     {
         if (other.gameObject.tag == "Player") 
         {
-            Debug.Log ("Player entered walking range");
+            //Debug.Log ("Player entered walking range");
+            inTrigger = true;
             inRange = true;
+            renderer.color = orange;
         }
     }
 
@@ -33,7 +41,9 @@ public class moveToObject : MonoBehaviour
     {
         if (other.gameObject.tag == "Player") 
         {
-            Debug.Log ("Player left walking range");
+            //Debug.Log ("Player left walking range");
+            renderer.color = standard;
+            inTrigger = false;
             inRange = false;
         }
     }

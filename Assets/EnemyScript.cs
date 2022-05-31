@@ -13,23 +13,6 @@ public class EnemyScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        //Debug.Log(Input.GetAxis("Horizontal"));
     }
-    /*
-    void OnTriggerEnter2D (Collider2D other)
-    {
-        if (other.gameObject.tag == "Player") 
-        {
-            Debug.Log ("Player entered range");
-        }
-    }
-
-    void OnTriggerExit2D (Collider2D other)
-    {
-        if (other.gameObject.tag == "Player") 
-        {
-            Debug.Log ("Player left range");
-        }
-    }
-    */
 }
