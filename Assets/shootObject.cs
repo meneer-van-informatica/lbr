@@ -86,6 +86,6 @@ public class shootObject : MonoBehaviour
 
     void shoot()
     {
-        Instantiate(fireball, new Vector3(tf.position.x, -1.35f, 0), Quaternion.identity);
+        Instantiate(fireball, new Vector3(tf.position.x, -3.2f, 0), Quaternion.identity);
     }
 }

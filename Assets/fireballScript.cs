@@ -8,6 +8,14 @@ public class fireballScript : MonoBehaviour
     public Rigidbody2D rb;
     public int runSpeed = 15;
 
+    void Update()
+    {
+         if (!GetComponent<Renderer>().isVisible)
+            {
+                Destroy(gameObject);
+            }
+    }
+
     void FixedUpdate()
     {
         rb.velocity = new Vector2(-1 * runSpeed, 0);
