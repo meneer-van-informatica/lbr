@@ -4,15 +4,65 @@ using UnityEngine;
 
 public class headJumpScript : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public SpriteRenderer renderer;
+    private int health = 100;
+    public Transform tf;
+
+    public Color black = new Color();
+    public Color standard = new Color();
+
+    void OnTriggerEnter2D (Collider2D other)
     {
-        
+        if (other.gameObject.tag == "Player")
+        {
+            enemyGetDamage();
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    void enemyGetDamage() //Apply damage and check if not dead
     {
-        
+        health -= 25;
+
+        if (health <= 0)
+        {
+            killEnemy();
+        }
+
+        changeAppearance();
     }
+
+    private float appearanceSeconds = 0.5f;
+    private bool appearanceStart = false;
+
+    void changeAppearance() //Change color for short period indicating damage
+    {
+        renderer.color = black;
+        if (!appearanceStart)
+        {
+            appearanceStart = true;
+            appearanceWait();
+        }
+    }
+
+    IEnumerator appearanceWait() 
+    {
+        yield return new WaitForSeconds (appearanceSeconds);
+        renderer.color = standard;
+        appearanceStart = false;
+    }
+
+    private float killSeconds = 1f;
+
+    void killEnemy() //First lay on ground, after 3 seconds Destroy
+    {
+        tf.eulerAngles = new Vector3(0, 0, 270);
+        killWait();
+    }
+
+    IEnumerator killWait() 
+    {
+        yield return new WaitForSeconds (killSeconds);
+        Destroy(gameObject);
+    }
+
 }
