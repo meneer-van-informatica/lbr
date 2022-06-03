@@ -409,7 +409,7 @@ GameObject:
   - component: {fileID: 188857546}
   - component: {fileID: 188857545}
   - component: {fileID: 188857544}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -428,6 +428,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ff36bcebe6f132419d2c9f6d76de7d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 566090504}
+  Enemy: {fileID: 188857548}
 --- !u!50 &188857545
 Rigidbody2D:
   serializedVersion: 4
@@ -533,8 +535,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 188857543}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9.19, y: -2.08, z: 0}
+  m_LocalRotation: {x: -0, y: -0.99645793, z: -0, w: -0.08409279}
+  m_LocalPosition: {x: 1.7093787, y: -2.08, z: -1.6313112}
   m_LocalScale: {x: 1.0887, y: 2.73, z: 1}
   m_Children:
   - {fileID: 1957617989}
@@ -543,7 +545,7 @@ Transform:
   - {fileID: 1626590434}
   m_Father: {fileID: 0}
   m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -189.648, z: 0}
 --- !u!1 &210811422
 GameObject:
   m_ObjectHideFlags: 0
@@ -931,6 +933,11 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!4 &566090504 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 339728066529960371, guid: 9acc49d7ce5e1ab45a98f01a135b8b02, type: 3}
+  m_PrefabInstance: {fileID: 40043378}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &639695391
 GameObject:
   m_ObjectHideFlags: 0
@@ -1746,7 +1753,7 @@ GameObject:
   - component: {fileID: 1626590434}
   - component: {fileID: 1626590436}
   - component: {fileID: 1626590435}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: head hitbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1780,9 +1787,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   renderer: {fileID: 188857547}
-  tf: {fileID: 1626590434}
-  black: {r: 0, g: 0, b: 0, a: 0}
-  standard: {r: 0, g: 0, b: 0, a: 0}
+  enemy: {fileID: 188857543}
+  tf: {fileID: 188857548}
+  rb: {fileID: 188857545}
+  black: {r: 0.04627597, g: 0.047169805, b: 0.04601281, a: 1}
+  standard: {r: 1, g: 0, b: 0.7105856, a: 1}
 --- !u!61 &1626590436
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1877,7 +1886,7 @@ GameObject:
   - component: {fileID: 1845811543}
   - component: {fileID: 1845811545}
   - component: {fileID: 1845811544}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: shootObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2021,7 +2030,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1957617989}
   - component: {fileID: 1957617990}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: eye
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2104,7 +2113,7 @@ GameObject:
   - component: {fileID: 2125485932}
   - component: {fileID: 2125485934}
   - component: {fileID: 2125485933}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: moveToObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
