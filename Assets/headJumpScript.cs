@@ -5,8 +5,10 @@ using UnityEngine;
 public class headJumpScript : MonoBehaviour
 {
     public SpriteRenderer renderer;
+    public GameObject enemy;
     private int health = 100;
     public Transform tf;
+    public Rigidbody2D rb;
 
     public Color black = new Color();
     public Color standard = new Color();
@@ -22,16 +24,18 @@ public class headJumpScript : MonoBehaviour
     void enemyGetDamage() //Apply damage and check if not dead
     {
         health -= 25;
-
+        //Debug.Log(health);
         if (health <= 0)
         {
             killEnemy();
         }
-
-        changeAppearance();
+        else
+        {
+            changeAppearance();
+        }
     }
 
-    private float appearanceSeconds = 0.5f;
+    private float appearanceSeconds = 0.2f;
     private bool appearanceStart = false;
 
     void changeAppearance() //Change color for short period indicating damage
@@ -40,7 +44,7 @@ public class headJumpScript : MonoBehaviour
         if (!appearanceStart)
         {
             appearanceStart = true;
-            appearanceWait();
+            StartCoroutine(appearanceWait());
         }
     }
 
@@ -54,15 +58,19 @@ public class headJumpScript : MonoBehaviour
     private float killSeconds = 1f;
 
     void killEnemy() //First lay on ground, after 3 seconds Destroy
-    {
+    {   
+        //Debug.Log("Kill");
+        rb.gravityScale = 50;
         tf.eulerAngles = new Vector3(0, 0, 270);
-        killWait();
+        renderer.color = black;
+        StartCoroutine(killWait());
     }
 
     IEnumerator killWait() 
     {
         yield return new WaitForSeconds (killSeconds);
-        Destroy(gameObject);
+        //Debug.Log("Destroy");
+        Destroy(enemy);
     }
 
 }
