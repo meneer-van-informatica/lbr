@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Levels/Scheikunde.unity
     guid: 54f4da8471b965744ae492297c0dc126
+  - enabled: 1
+    path: Assets/Levels/scheikundeMain.unity
+    guid: ae1ec664348661942b20e0d91cee85dc
   m_configObjects: {}

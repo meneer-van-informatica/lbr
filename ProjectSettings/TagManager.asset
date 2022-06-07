@@ -8,6 +8,8 @@ TagManager:
   - Enemy
   - Checkpoint
   - Fireball
+  - HookEnemy
+  - Rope
   layers:
   - Default
   - TransparentFX

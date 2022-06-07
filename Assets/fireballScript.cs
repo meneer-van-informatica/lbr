@@ -5,20 +5,37 @@ using UnityEngine;
 public class fireballScript : MonoBehaviour
 {
     
-    public Rigidbody2D rb;
-    public int runSpeed = 15;
+    public Transform tf;
+    public float runSpeed = 0.15f;
 
+    private GameObject player;
+    private Transform playerTF;
+    private Vector3 target;
+
+    void Start()
+    {
+        player = GameObject.Find("Player");
+        playerTF = player.GetComponent<Transform>();
+        
+        //Get player's position
+        target = playerTF.position;
+
+        //Face the target
+        tf.up = target - tf.position;
+    }
+    
     void Update()
     {
-         if (!GetComponent<Renderer>().isVisible)
-            {
-                Destroy(gameObject);
-            }
+        if (!GetComponent<Renderer>().isVisible)
+        {
+            Destroy(gameObject);
+        }
     }
 
     void FixedUpdate()
-    {
-        rb.velocity = new Vector2(-1 * runSpeed, 0);
+    {   
+        //Move to target
+        tf.position += tf.up * runSpeed;
     }
 
     void OnTriggerEnter2D (Collider2D other)
