@@ -59,6 +59,7 @@ public class HookScript : MonoBehaviour
         if (!arrived)
         {
             Instantiate(rope, new Vector3(tf.position.x, tf.position.y, tf.position.z + 1), Quaternion.identity);
+            
         }
     }
 

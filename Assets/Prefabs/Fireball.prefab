@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8652476439879991208}
   - component: {fileID: 8652476439879991209}
   - component: {fileID: 8652476439879991205}
+  - component: {fileID: 1304395482726670564}
   m_Layer: 0
   m_Name: Fireball
   m_TagString: Fireball
@@ -113,10 +114,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83b61e05eae0f7a408905ca991229685, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rb: {fileID: 8652476439879991205}
   tf: {fileID: 8652476439879991210}
   runSpeed: 0.15
-  enemy: {fileID: 0}
 --- !u!50 &8652476439879991205
 Rigidbody2D:
   serializedVersion: 4
@@ -138,3 +137,16 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &1304395482726670564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8652476439879991214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b678036199582424bbc34eb7a351f65b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 25

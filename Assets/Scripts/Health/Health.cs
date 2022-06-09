@@ -81,6 +81,7 @@ public class Health : MonoBehaviour
     //Respawn
     public void Respawn()
     {
+        dead = false;
         AddHealth(startingHealth);
         anim.ResetTrigger("die");
         anim.Play("Idle");
