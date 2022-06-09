@@ -2,15 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class potionSpawn : MonoBehaviour
+public class goombaSpawn : MonoBehaviour
 {
-    public GameObject potion;
+    public GameObject goomba;
     public Transform tf;
 
-    private bool ready = true;
+    private bool ready = false;
     public int spawnDelay = 7;
-    public float offset = 2f;
 
+    void Start()
+    {
+        StartCoroutine(delay());
+    }
     void Update()
     {
         if (ready)
@@ -18,7 +21,7 @@ public class potionSpawn : MonoBehaviour
             ready = false;
             StartCoroutine(delay());
 
-            Instantiate(potion, new Vector3(tf.position.x, tf.position.y + offset, 0), Quaternion.identity);
+            Instantiate(goomba, new Vector3(tf.position.x, tf.position.y, 0), Quaternion.identity);
         }
     }
     IEnumerator delay() 

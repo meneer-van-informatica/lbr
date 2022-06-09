@@ -7,6 +7,10 @@ TagManager:
   - Ground
   - Enemy
   - Checkpoint
+  - Fireball
+  - HookEnemy
+  - Rope
+  - Boss
   layers:
   - Default
   - TransparentFX

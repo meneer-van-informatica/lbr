@@ -36,7 +36,7 @@ public class HookScript : MonoBehaviour
         tf.up = player.position - tf.position;
 
         //Assign enemy
-        enemyObject = GameObject.Find("HookEnemy");
+        enemyObject = GameObject.Find("Boss");
         enemy = enemyObject.GetComponent<Transform>();
 
     }
@@ -70,7 +70,7 @@ public class HookScript : MonoBehaviour
 
     void OnTriggerEnter2D (Collider2D other)
     {   
-        if (other.gameObject.tag == "HookEnemy" && arrived)
+        if (other.gameObject.tag == "Boss" && arrived)
         {
             Destroy(gameObject);
         }
@@ -85,6 +85,11 @@ public class HookScript : MonoBehaviour
             //Debug.Log("early return");
             hitEnemy();
         }
+        else if (other.gameObject.layer == 8 && other.gameObject.tag != "Boss" && !arrived) //Boss also has 'ground'-layer
+        {
+            arrived = true;
+            tf.up = enemy.position - tf.position;
+        }
     }
 
     void OnTriggerExit2D (Collider2D other)
@@ -92,6 +97,10 @@ public class HookScript : MonoBehaviour
         if (other.gameObject.tag == "Rope" && arrived)
         {
             Destroy(other.gameObject);
+        }
+        else if (other.gameObject.tag == "Boss" && arrived)
+        {
+            Destroy(gameObject);
         }
     }
 
