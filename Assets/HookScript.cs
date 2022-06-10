@@ -55,12 +55,14 @@ public class HookScript : MonoBehaviour
         {
             renderer.color = standard;
         }
+            StartCoroutine(ExecuteAfterTime(10));
+        if (!arrived) {
 
-        if (!arrived)
-        {
-            Instantiate(rope, new Vector3(tf.position.x, tf.position.y, tf.position.z + 1), Quaternion.identity);
+                    Instantiate(rope, new Vector3(tf.position.x, tf.position.y, tf.position.z + 1), Quaternion.identity);
             
-        }
+                }
+
+
     }
 
     void FixedUpdate()
@@ -68,6 +70,11 @@ public class HookScript : MonoBehaviour
         //Move towards target
         tf.position += tf.up * runSpeed;
     }
+
+     IEnumerator ExecuteAfterTime(float time) {
+                yield return new WaitForSeconds(time);
+    
+         }
 
     void OnTriggerEnter2D (Collider2D other)
     {   
