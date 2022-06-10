@@ -5,7 +5,7 @@ using UnityEngine;
 public class goombaScript : MonoBehaviour
 {
 
-    private int direction = -1;
+    public int direction = -1;
     public float runSpeed = 5f;
     public float fallSpeed = -6f;
     public Rigidbody2D rb;
@@ -32,7 +32,7 @@ public class goombaScript : MonoBehaviour
         {
             direction = -1;
         }
-
+        Debug.Log(direction);
         StartCoroutine(Wait());
     }
 
@@ -40,6 +40,21 @@ public class goombaScript : MonoBehaviour
     {
         yield return new WaitForSeconds (startDelay);
         start = true;
+    }
+
+    void FixedUpdate()
+    {
+        if (start && !dead && grounded)
+        {
+            rb.velocity = new Vector2(direction * runSpeed, 0);
+            Debug.Log("walking");
+            //rb.AddForce(tf.right * runSpeed);
+        }
+        else if (start && !dead && !grounded)
+        {
+            rb.velocity = new Vector2(direction * runSpeed, fallSpeed);
+            Debug.Log("falling");
+        }
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -52,19 +67,6 @@ public class goombaScript : MonoBehaviour
             tf.eulerAngles = new Vector3(0, 0, 270); //Lay on side
             box.isTrigger = true;
             StartCoroutine(deadWait());
-        }
-    }
-
-    void FixedUpdate()
-    {
-        if (start && !dead && grounded)
-        {
-            rb.velocity = new Vector2(direction * runSpeed, 0);
-            //rb.AddForce(tf.right * runSpeed);
-        }
-        else if (start && !dead && !grounded)
-        {
-            rb.velocity = new Vector2(direction * (runSpeed/2), fallSpeed);
         }
     }
 
@@ -85,9 +87,12 @@ public class goombaScript : MonoBehaviour
             direction = 1;
         }
 
+        Debug.Log(direction);
+
          if (collision.gameObject.layer == 8)
          {
-             grounded = true;
+            grounded = true;
+            Debug.Log("Grounded");
          }
      }
 
@@ -95,8 +100,8 @@ public class goombaScript : MonoBehaviour
      {
          if (collision.gameObject.layer == 8)
          {
-             grounded = false;
-             Debug.Log("yo");
+            grounded = false;
+            Debug.Log("Not grounded");
          }
      }
 }
