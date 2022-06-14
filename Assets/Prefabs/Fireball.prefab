@@ -114,7 +114,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tf: {fileID: 8652476439879991210}
-  runSpeed: 0.15
+  runSpeed: 0.2
 --- !u!50 &8652476439879991205
 Rigidbody2D:
   serializedVersion: 4

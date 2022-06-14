@@ -90,4 +90,27 @@ public class Health : MonoBehaviour
         foreach (Behaviour component in components)
             component.enabled = true;
     }
+
+    void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.tag == "Goomba" && gameObject.transform.position.y - other.gameObject.transform.position.y < 1.5f)
+        {
+            if (!other.gameObject.GetComponent<goombaScript>().dead)
+            {
+                TakeDamage(1);
+            }
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.tag == "Fireball")
+        {
+            TakeDamage(0.5f);
+        }
+        else if (other.gameObject.tag == "Potion")
+        {
+            currentHealth += 0.5f;
+        }
+    }
 }

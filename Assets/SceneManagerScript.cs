@@ -4,41 +4,38 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class SceneManagerScript : MonoBehaviour
-{
-    
-    public void test()
+{   
+    public void loadMainMenu()
     {
-        SceneManager.LoadScene("scheikundeMain");
+        SceneManager.LoadScene("MainMenu");
     }
 
-    void loadMainMenu()
-    {
-        
-    }
-
-    void loadLevelselect()
+    public void loadLevelselect()
     {
         SceneManager.LoadScene("levelselect");
     }
 
-    void loadLevel1()
+    public void loadScheikunde1()
+    {
+        SceneManager.LoadScene("scheikundeMain");
+    }
+
+    public void loadScheikundeBoss()
+    {
+        SceneManager.LoadScene("bossScheikunde");
+    }
+
+    public void loadWiskunde1()
     {
         
     }
 
-    void loadLevel2()
+    public void loadBio1()
     {
-        
     }
 
-    void loadSettings()
+    public void loadCredits()
     {
-        SceneManager.LoadScene("settings");
-    }
-
-    void loadCredits()
-    {
-        SceneManager.LoadScene("credits");
     }
 
     public void quitGame()

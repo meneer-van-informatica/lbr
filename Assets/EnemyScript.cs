@@ -5,6 +5,7 @@ using System;
 
 public class EnemyScript : MonoBehaviour
 {
+    public GameObject playerObject;
     public Transform player;
     public Transform Enemy;
     public Rigidbody2D rb;
@@ -25,7 +26,6 @@ public class EnemyScript : MonoBehaviour
     public SpriteRenderer renderer;
     //--
 
-    private bool inShootingRange = false;
     private bool inWalkingRange = false;
     public float walkingRange = 8f;
     public float shootingRange = 4f;
@@ -36,6 +36,7 @@ public class EnemyScript : MonoBehaviour
     private bool waiting = false;
     public float ballOffset = 0.5f;
     private bool first = true; //If this is true, it's player's first time to get in shooting-range
+    public bool shootThroughWall = true;
     //--
 
     //Variables for damage to enemy:
@@ -43,6 +44,12 @@ public class EnemyScript : MonoBehaviour
     public float appearanceSeconds = 0.2f;
     private bool appearanceStart = false;
     //--
+
+    void Start()
+    {
+        playerObject = GameObject.Find("Player");
+        player = playerObject.GetComponent<Transform>();
+    }
 
     void Update()
     {
@@ -72,7 +79,6 @@ public class EnemyScript : MonoBehaviour
             {
                 renderer.color = red;
                 inWalkingRange = false;
-                inShootingRange = true;
                 if (first)
                 {   
                     first = false;
@@ -85,7 +91,6 @@ public class EnemyScript : MonoBehaviour
             {   
                 renderer.color = orange;
                 inWalkingRange = true;
-                inShootingRange = false;
                 first = true;
             }
 
@@ -93,7 +98,6 @@ public class EnemyScript : MonoBehaviour
             {
                 renderer.color = standard;
                 inWalkingRange = false;
-                inShootingRange = false;
                 first = true;
 
             }
@@ -128,12 +132,17 @@ public class EnemyScript : MonoBehaviour
         waiting = false;
     }
 
+    private fireballScript script;
+
     void shoot()
     {   
         //Spawns a "fireball"
         if (!dead)
-        {
-            Instantiate(fireball, new Vector3(Enemy.position.x, Enemy.position.y + ballOffset, 0), Quaternion.identity);
+        {   
+            var newBall = Instantiate(fireball, new Vector3(Enemy.position.x, Enemy.position.y + ballOffset, 0), Quaternion.identity);
+            script = newBall.GetComponent<fireballScript>();
+            script.shootThroughWall = shootThroughWall;
+            script.enemy = gameObject;
         }
     }
 

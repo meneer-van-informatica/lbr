@@ -7,23 +7,28 @@ public class potionSpawn : MonoBehaviour
     public GameObject potion;
     public Transform tf;
 
-    private bool ready = true;
+    public bool potionUsed = false;
     public int spawnDelay = 7;
     public float offset = 2f;
 
+    void Start()
+    {   
+        StartCoroutine(delay());
+    }
+
     void Update()
     {
-        if (ready)
+        if (potionUsed)
         {
-            ready = false;
+            potionUsed = false;
             StartCoroutine(delay());
-
-            Instantiate(potion, new Vector3(tf.position.x, tf.position.y + offset, 0), Quaternion.identity);
         }
     }
+
     IEnumerator delay() 
     {
         yield return new WaitForSeconds (spawnDelay);
-        ready = true;
+        Instantiate(potion, new Vector3(tf.position.x, tf.position.y + offset, 0), Quaternion.identity);
     }
+        
 }
