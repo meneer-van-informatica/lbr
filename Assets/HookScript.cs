@@ -19,11 +19,14 @@ public class HookScript : MonoBehaviour
     private Transform player;
     private Rigidbody2D playerRb;
 
-    private GameObject enemyObject;
+    public GameObject enemyObject;
+    private bossScript bossScript;
+    private HookEnemyScript hookScript;
     public Transform enemy;
 
     public GameObject rope;
     
+    public bool usedWithBoss = false;
 
     void Start()
     {
@@ -36,8 +39,17 @@ public class HookScript : MonoBehaviour
         tf.up = player.position - tf.position;
 
         //Assign enemy
-        enemyObject = GameObject.Find("HookEnemy");
         enemy = enemyObject.GetComponent<Transform>();
+
+        //USE:
+        if (usedWithBoss)
+        {
+            bossScript = enemyObject.GetComponent<bossScript>();
+        }
+        else 
+        {
+            hookScript = enemyObject.GetComponent<HookEnemyScript>();
+        }
 
     }
 
@@ -55,14 +67,11 @@ public class HookScript : MonoBehaviour
         {
             renderer.color = standard;
         }
-            StartCoroutine(ExecuteAfterTime(10));
-        if (!arrived) {
 
-                    Instantiate(rope, new Vector3(tf.position.x, tf.position.y, tf.position.z + 1), Quaternion.identity);
-            
-                }
-
-
+        if (!arrived)
+        {
+            Instantiate(rope, new Vector3(tf.position.x, tf.position.y, tf.position.z + 1), Quaternion.identity);
+        }
     }
 
     void FixedUpdate()
@@ -71,16 +80,21 @@ public class HookScript : MonoBehaviour
         tf.position += tf.up * runSpeed;
     }
 
-     IEnumerator ExecuteAfterTime(float time) {
-                yield return new WaitForSeconds(time);
-    
-         }
-
     void OnTriggerEnter2D (Collider2D other)
     {   
-        if (other.gameObject.tag == "HookEnemy" && arrived)
-        {
+        if (other.gameObject.name == enemyObject.name && arrived)
+        {   
+            if (usedWithBoss)
+            {
+                bossScript.hookAttack = false;
+            }
+            else
+            {
+                hookScript.hookAttack = false;
+            }
+            
             Destroy(gameObject);
+
         }
         else if (other.gameObject.tag == "Rope" && arrived)
         {
@@ -93,6 +107,11 @@ public class HookScript : MonoBehaviour
             //Debug.Log("early return");
             hitEnemy();
         }
+        else if (other.gameObject.layer == 8 && other.gameObject.name != enemyObject.name && !arrived) //Boss also has 'ground'-layer
+        {
+            arrived = true;
+            tf.up = enemy.position - tf.position;
+        }
     }
 
     void OnTriggerExit2D (Collider2D other)
@@ -100,6 +119,19 @@ public class HookScript : MonoBehaviour
         if (other.gameObject.tag == "Rope" && arrived)
         {
             Destroy(other.gameObject);
+        }
+        else if (other.gameObject.name == enemyObject.name && arrived)
+        {
+            if (usedWithBoss)
+            {
+                bossScript.hookAttack = false;
+            }
+            else
+            {
+                hookScript.hookAttack = false;
+            }
+
+            Destroy(gameObject);
         }
     }
 

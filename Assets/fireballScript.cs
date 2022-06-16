@@ -8,9 +8,12 @@ public class fireballScript : MonoBehaviour
     public Transform tf;
     public float runSpeed = 0.15f;
 
+    public GameObject enemy;
     private GameObject player;
     private Transform playerTF;
     private Vector3 target;
+    private bool start = false;
+    public bool shootThroughWall;
 
     void Start()
     {
@@ -22,11 +25,12 @@ public class fireballScript : MonoBehaviour
 
         //Face the target
         tf.up = target - tf.position;
+        StartCoroutine(startTimer());
     }
     
     void Update()
     {
-        if (!GetComponent<Renderer>().isVisible)
+        if (!GetComponent<Renderer>().isVisible && start)
         {
             Destroy(gameObject);
         }
@@ -39,11 +43,25 @@ public class fireballScript : MonoBehaviour
     }
 
     void OnTriggerEnter2D (Collider2D other)
-    {
-        if (other.gameObject.tag == "Player") 
+    { 
+        if (start)
         {
-            Debug.Log("hit");
-            Destroy(gameObject);
+            if (other.gameObject.tag == "Player") 
+            {
+                //Debug.Log("hit");
+                Destroy(gameObject);
+            }
+
+            if (!shootThroughWall && other.gameObject.name != enemy.gameObject.name)
+            {
+                Destroy(gameObject);
+            }
         }
+    }
+
+    IEnumerator startTimer() 
+    {
+        yield return new WaitForSeconds (0.01f);
+        start = true;
     }
 }

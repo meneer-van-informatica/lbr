@@ -6,9 +6,13 @@ public class PlayerRespawn : MonoBehaviour
     private Transform currentCheckpoint;
     private Health playerHealth;
 
+    public GameObject spawnPoint;
+
     private void Awake()
     {
         playerHealth = GetComponent<Health>();
+        spawnPoint = GameObject.Find("spawnPoint");
+        currentCheckpoint = spawnPoint.transform;
     }
 
     public void Respawn()
@@ -17,8 +21,9 @@ public class PlayerRespawn : MonoBehaviour
         transform.position = currentCheckpoint.position; //Move player to checkpoint location
 
         //Move the camera to the checkpoint's room
-        Camera.main.GetComponent<CameraController>().MoveToNewRoom(currentCheckpoint.parent);
+        //WCamera.main.GetComponent<CameraController>().MoveToNewRoom(currentCheckpoint.parent);
     }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Checkpoint")
