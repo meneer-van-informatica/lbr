@@ -101,6 +101,10 @@ public class Health : MonoBehaviour
                 TakeDamage(1);
             }
         }
+        else if (other.gameObject.tag == "Spike")
+        {
+            TakeDamage(3);
+        }
     }
 
     void OnTriggerEnter2D(Collider2D other)
