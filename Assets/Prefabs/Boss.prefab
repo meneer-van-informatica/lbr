@@ -115,7 +115,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6535324526684867211}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
@@ -173,6 +173,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tf: {fileID: 6535324526684867205}
+  playerObject: {fileID: 0}
   player: {fileID: 0}
   hook: {fileID: 5721335474822893923, guid: 69a0f9ff6c473d848903325fbea5da7a, type: 3}
   projectile: {fileID: 8652476439879991214, guid: 263c403f6a15716468a1f97e350cd7a1, type: 3}
@@ -182,6 +183,7 @@ MonoBehaviour:
   hookAttack: 0
   attackRange: 7
   cooldown: 1.5
+  shootThroughWall: 1
   walkDuration: 1
   walkDelay: 1
   runSpeed: 6
@@ -229,7 +231,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6535324527494336520}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1

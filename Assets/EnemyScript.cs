@@ -168,7 +168,7 @@ public class EnemyScript : MonoBehaviour
         dead = true;
         rb.gravityScale = 50; //Because otherwise enemy falls down like a feather
         Enemy.eulerAngles = new Vector3(0, 0, 270); //Lay on side
-        renderer .color = black;
+        renderer.color = black;
         StartCoroutine(killWait()); //Start a timer before removing enemy from scene
     }
 

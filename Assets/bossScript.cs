@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class bossScript : MonoBehaviour
 {
@@ -56,8 +57,14 @@ public class bossScript : MonoBehaviour
 
     public float jumpVelocity = 4f;
     //---
+    //Health
+    private int health = 100;
+    private int playerDamage = 10;
 
-    //only hook when not walking, else just fireball
+    public Color black = new Color();
+    public Color standard = new Color();
+    public SpriteRenderer renderer;
+    //---
 
     void Start()
     {
@@ -95,7 +102,7 @@ public class bossScript : MonoBehaviour
     {   
         distance = Vector3.Distance(tf.position, player.position);
 
-        if (distance <= attackRange && attackReady && start)
+        if (distance <= attackRange && attackReady && start && !dead)
         {
             currentAttack = Random.Range(1,3); //Choose next attack
             attackReady = false;
@@ -222,13 +229,45 @@ public class bossScript : MonoBehaviour
         script.usedWithBoss = true;
     }
 
-    /*void OnTriggerEnter2D()
+    void OnTriggerEnter2D(Collider2D other)
     {
-        grounded = true;
+        if (other.gameObject.tag == "Player")
+        {
+            health -= playerDamage;
+            if (health <= 0)
+            {
+                //Die:
+                dead = true;
+                tf.eulerAngles = new Vector3(0, 0, 270);
+                StartCoroutine(die());
+            }
+            else
+            {
+                renderer.color = black;
+                StartCoroutine(damage());
+
+            }
+        }
     }
 
-    void OnTriggerExit2D()
+    IEnumerator die()
     {
-        grounded = false;
-    }*/
+        renderer.color = black;
+        yield return new WaitForSeconds(2);
+        Destroy(gameObject);
+        StartCoroutine(win());
+    }
+
+    IEnumerator damage()
+    {
+        yield return new WaitForSeconds(1);
+        renderer.color = standard;
+    }
+
+    IEnumerator win()
+    {
+        yield return new WaitForSeconds(5);
+        SceneManager.LoadScene("win");
+    }
+    
 }

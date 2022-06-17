@@ -62,7 +62,7 @@ public class Health : MonoBehaviour
     private IEnumerator Invunerability()
     {
         invulnerable = true;
-        Physics2D.IgnoreLayerCollision(10, 11, true);
+        //Physics2D.IgnoreLayerCollision(10, 11, true);
         for (int i = 0; i < numberOfFlashes; i++)
         {
             spriteRend.color = new Color(1, 0, 0, 0.5f);
@@ -70,7 +70,7 @@ public class Health : MonoBehaviour
             spriteRend.color = Color.white;
             yield return new WaitForSeconds(iFramesDuration / (numberOfFlashes * 2));
         }
-        Physics2D.IgnoreLayerCollision(10, 11, false);
+        //Physics2D.IgnoreLayerCollision(10, 11, false);
         invulnerable = false;
     }
     private void Deactivate()
@@ -109,7 +109,7 @@ public class Health : MonoBehaviour
         {
             TakeDamage(0.5f);
         }
-        else if (other.gameObject.tag == "Potion")
+        else if (other.gameObject.tag == "Potion" && currentHealth < 3)
         {
             currentHealth += 0.5f;
         }
