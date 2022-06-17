@@ -133,18 +133,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.01547575, y: -0.5374851}
+  m_Offset: {x: 0.01547575, y: -0.51310515}
   m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 5.12, y: 2.56}
+    border: {x: 4.4444447, y: 5.0333333, z: 3.0444446, w: 2.1833334}
+    pivot: {x: 0.5741761, y: 0.7}
+    oldSize: {x: 8.888889, y: 8.888889}
     newSize: {x: 2.56, y: 2.56}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.6189177, y: 1.3523817}
+  m_Size: {x: 0.6189177, y: 1.3036218}
   m_EdgeRadius: 0
 --- !u!50 &339728066529960368
 Rigidbody2D:
@@ -183,15 +183,11 @@ MonoBehaviour:
   jumpPower: 20
   coyoteTime: 0.25
   extraJumps: 1
-  wallJumpX: 30
-  wallJumpY: 15
   groundLayer:
     serializedVersion: 2
     m_Bits: 256
-  wallLayer:
-    serializedVersion: 2
-    m_Bits: 512
   jumpSound: {fileID: 8300000, guid: 3c23de8f88fc9ba498b0d232fb269dff, type: 3}
+  winBool: 0
 --- !u!114 &339728066529960372
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -199,7 +195,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 339728066529960365}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 483a09769e6012e45a61c4a4319e6797, type: 3}
   m_Name: 
@@ -270,3 +266,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   checkpoint: {fileID: 8300000, guid: ac2ef9f49e9913d47a234631fc894d68, type: 3}
+  spawnPoint: {fileID: 0}

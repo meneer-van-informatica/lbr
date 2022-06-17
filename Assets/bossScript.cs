@@ -1,10 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class bossScript : MonoBehaviour
 {
+
+    //GroundCheck (SO --> Casper)
+    public Transform groundCheck;
+    private float GC_width = 0.9f;
+    private float GC_height = 0.3f;
+    public LayerMask groundLayer;
+
+    public bool isGrounded()
+    {
+        RaycastHit2D raycastHit = Physics2D.BoxCast(groundCheck.position, new Vector3(GC_width, GC_height, 0), 0, Vector2.down, 0.1f, groundLayer);
+        return raycastHit.collider != null;
+    }
+    //---
     //Components
     public Transform tf;
     public GameObject playerObject;
@@ -14,9 +26,11 @@ public class bossScript : MonoBehaviour
     public Rigidbody2D rb;
     public BoxCollider2D selfBox;
     public BoxCollider2D platformBox;
+    public PlayerMovement movementScript;
+    public SpriteRenderer renderer;
     //---
     //Attack variables
-    private int currentAttack = 1; // 1 = hook, 2 = throw beer
+    private int currentAttack = 1; // 1 = hook, 2 = throw projectile
     private float distance;
     private bool attackReady = true;
     public bool hookAttack = false; //The hook-script makes it false when hook is destroyed
@@ -35,41 +49,36 @@ public class bossScript : MonoBehaviour
     private int startDelayCount = 1;
     private bool start = false;
     private bool dead = false;
-    private bool grounded = true;
 
     public float runSpeed = 6f;
     public float fallSpeed = -8f;
 
-    private float levelLeft = -16.1f;
-    private float levelRight = 8f;
     //---
     //Jumping variables
     private int currentHeight = 0; //0 = ground, 1 = platform
     //Dimensions of platform
-    private float platformLeft = -6.5f;
-    private float platformRight = 5.9f;
-    public float platformHeight = -1.5f;
+    private float platformLeft = -11.0f;
+    private float platformRight = 2.2f;
+    private float platformHeight = -5.6f;
 
-    public bool jumping = true;
+    private bool jumping = true;
     public float verticalDelay = 3f; //Delay between jumps/descends
-
-    private bool jumpFirst = true;
 
     public float jumpVelocity = 4f;
     //---
     //Health
     private int health = 100;
-    private int playerDamage = 10;
+    public int playerDamage = 10;
 
     public Color black = new Color();
     public Color standard = new Color();
-    public SpriteRenderer renderer;
     //---
 
     void Start()
     {
         playerObject = GameObject.Find("Player");
         player = playerObject.GetComponent<Transform>();
+        movementScript = player.GetComponent<PlayerMovement>();
         StartCoroutine(startDelay());
     }
     
@@ -83,16 +92,13 @@ public class bossScript : MonoBehaviour
 
     void Update()
     {
-        distance = Vector3.Distance(tf.position, player.position);
-
-        if (distance < 2.021f)
+        if (isGrounded())
         {
-            grounded = true;
+            renderer.color = black;
         }
-        
-        if (tf.position.x < levelLeft || tf.position.x > levelRight)
+        else
         {
-            walking = false;
+            renderer.color = standard;
         }
     }
 
@@ -102,9 +108,9 @@ public class bossScript : MonoBehaviour
     {   
         distance = Vector3.Distance(tf.position, player.position);
 
-        if (distance <= attackRange && attackReady && start && !dead)
+        if (distance <= attackRange && attackReady && start && !dead) //&& isGrounded()?
         {
-            currentAttack = Random.Range(1,3); //Choose next attack
+            currentAttack = Random.Range(1,3); //Choose next attack, 1,2 or 3. Only 1 is hook attack, others are projectile
             attackReady = false;
             StartCoroutine(cooldownTimer()); 
 
@@ -122,28 +128,30 @@ public class bossScript : MonoBehaviour
             }
         }
 
-        if (tf.position.y > platformHeight)
+        
+        if (tf.position.y > platformHeight && !isGrounded())
         {   
-            if (jumpFirst)
-            {
-                jumping = false;
-                grounded = false;
-                currentHeight = 1;
-                jumpFirst = false;
-            }
+            
+            jumping = false;
+            currentHeight = 1;
         }
+        
 
-        if (start && !dead)
+        if (start && !dead && !hookAttack)
         {
-            if (walking && !jumping && grounded && !hookAttack)
+            if (!jumping && !isGrounded())
             {
-                rb.velocity = new Vector2(direction * runSpeed, 0);
+                rb.velocity = new Vector2(direction * runSpeed, fallSpeed); //runSpeed/2, but gets stuck on edge of platform
             }
-            else if (!jumping && !grounded)
+            else if (currentHeight == 1 && tf.position.y < platformHeight - 0.08f && isGrounded() && !jumping)
             {
                 rb.velocity = new Vector2(direction * runSpeed/2, fallSpeed);
             }
-            else if (jumping && !hookAttack)
+            else if (walking && !jumping && isGrounded())
+            {
+                rb.velocity = new Vector2(direction * runSpeed, 0);
+            }
+            else if (jumping)
             {
                 rb.velocity = new Vector2(0, jumpVelocity);
             }
@@ -177,21 +185,19 @@ public class bossScript : MonoBehaviour
 
     IEnumerator vertical()
     {   
+        //  If on the ground && the player is higher && I'm under the platform
         if (currentHeight == 0 && player.position.y > -5f && tf.position.x >= platformLeft && tf.position.x <= platformRight)
         {
             //jump
-            jumpFirst = true;
-            jumping = true;
-            currentHeight = 1;
+            jumping = true;            
         }
 
-        else if (currentHeight == 1 && player.position.y < tf.position.y)
+        else if (currentHeight == 1 && player.position.y < tf.position.y && !hookAttack)
         {
-            //descend
+            //Drop
             Physics2D.IgnoreCollision(selfBox, platformBox);
             yield return new WaitForSeconds (1);
             Physics2D.IgnoreCollision(selfBox, platformBox, false);
-            currentHeight = 0;
         }
 
         yield return new WaitForSeconds (verticalDelay);
@@ -200,22 +206,9 @@ public class bossScript : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {   
-        if (collision.gameObject.layer == 8 && !jumping)
-        {
-            grounded = true;
-        }
-
         if (collision.gameObject.tag == "Floor")
         {
             currentHeight = 0;
-        }
-    }
-
-    void OnCollisionExit2D(Collision2D collision)
-    {   
-        if (collision.gameObject.layer == 8 && !jumping)
-        {
-            grounded = true;
         }
     }
 
@@ -252,22 +245,15 @@ public class bossScript : MonoBehaviour
 
     IEnumerator die()
     {
+        movementScript.winBool = true;
         renderer.color = black;
         yield return new WaitForSeconds(2);
         Destroy(gameObject);
-        StartCoroutine(win());
     }
 
     IEnumerator damage()
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.2f);
         renderer.color = standard;
-    }
-
-    IEnumerator win()
-    {
-        yield return new WaitForSeconds(5);
-        SceneManager.LoadScene("win");
-    }
-    
+    }    
 }
