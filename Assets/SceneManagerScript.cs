@@ -5,24 +5,26 @@ using UnityEngine.SceneManagement;
 
 public class SceneManagerScript : MonoBehaviour
 {   
+    public LoaderScriptMM scriptLoad;
+
     public void loadMainMenu()
     {
-        SceneManager.LoadScene("MainMenu");
+        scriptLoad.LoadAnimation("MainMenu");
     }
 
     public void loadLevelselect()
     {
-        SceneManager.LoadScene("levelselect");
+        scriptLoad.LoadAnimation("levelselect");
     }
 
     public void loadScheikunde1()
     {
-        SceneManager.LoadScene("scheikundeMain");
+        scriptLoad.LoadAnimation("Scheikundeklaar");
     }
 
     public void loadScheikundeBoss()
     {
-        SceneManager.LoadScene("bossScheikunde");
+        scriptLoad.LoadAnimation("bossScheikunde");
     }
 
     public void loadWiskunde1()

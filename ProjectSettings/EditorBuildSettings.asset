@@ -30,6 +30,12 @@ EditorBuildSettings:
     path: Assets/Levels/MainMenu.unity
     guid: 1b47a36b010f9fd4691f3d6afafb9333
   - enabled: 1
+    path: Assets/Levels/Scheikundeklaar.unity
+    guid: ae4a5401296c43c488893be793f19ca4
+  - enabled: 1
     path: Assets/Levels/Level Symen.unity
     guid: eedd7b88e32188e468525c3ee2e75589
+  - enabled: 1
+    path: Assets/Levels/LevelSelect.unity
+    guid: 897fc98cf2702b148974d6a9e1c0b0bb
   m_configObjects: {}

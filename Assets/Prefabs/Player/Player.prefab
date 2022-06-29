@@ -42,10 +42,10 @@ GameObject:
   - component: {fileID: 339728066529960370}
   - component: {fileID: 339728066529960369}
   - component: {fileID: 339728066529960368}
-  - component: {fileID: 339728066529960374}
   - component: {fileID: 339728066529960375}
   - component: {fileID: 339728066529960373}
   - component: {fileID: 6126100315396194484}
+  - component: {fileID: 8837872145266807420}
   m_Layer: 10
   m_Name: Player
   m_TagString: Player
@@ -167,36 +167,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &339728066529960374
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 339728066529960365}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bad90225a3078c64db7ad940e9a90d3c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 10
-  jumpPower: 20
-  m_MovementSmoothing: 0.05
-  maxJumps: 2
-  wallJumpX: 0
-  wallJumpY: 0
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 256
-  wallLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  jumpSound: {fileID: 8300000, guid: 3c23de8f88fc9ba498b0d232fb269dff, type: 3}
-  GC_width: 0.7
-  GC_height: 0.3
-  groundCheck: {fileID: 3034726851032373644}
-  Vspeed: 100
-  winBool: 1
 --- !u!95 &339728066529960375
 Animator:
   serializedVersion: 3
@@ -233,7 +203,7 @@ MonoBehaviour:
   numberOfFlashes: 3
   components:
   - {fileID: 0}
-  - {fileID: 339728066529960374}
+  - {fileID: 0}
   deathSound: {fileID: 8300000, guid: dd6d9531e2f11434f9add7e7e09cd332, type: 3}
   hurtSound: {fileID: 8300000, guid: 32ff513695816ae4fb9ecd5c1bc67120, type: 3}
 --- !u!114 &6126100315396194484
@@ -250,6 +220,36 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   checkpoint: {fileID: 8300000, guid: ac2ef9f49e9913d47a234631fc894d68, type: 3}
   spawnPoint: {fileID: 0}
+--- !u!114 &8837872145266807420
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 339728066529960365}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bad90225a3078c64db7ad940e9a90d3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 60
+  jumpPower: 17.5
+  m_MovementSmoothing: 0.05
+  maxJumps: 2
+  wallJumpX: 0
+  wallJumpY: 0
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  wallLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  jumpSound: {fileID: 0}
+  GC_width: 0.7
+  GC_height: 0.3
+  groundCheck: {fileID: 0}
+  Vspeed: 100
+  winBool: 0
 --- !u!1 &1356897068069327600
 GameObject:
   m_ObjectHideFlags: 0
