@@ -94,6 +94,7 @@ public class Health : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D other)
     {
+        if (other.gameObject.tag == "Spike") { TakeDamage(3); }
         if (other.gameObject.tag == "Goomba" && gameObject.transform.position.y - other.gameObject.transform.position.y < 1.5f)
         {
             if (!other.gameObject.GetComponent<goombaScript>().dead)
@@ -101,6 +102,7 @@ public class Health : MonoBehaviour
                 TakeDamage(1);
             }
         }
+    
     }
 
     void OnTriggerEnter2D(Collider2D other)
