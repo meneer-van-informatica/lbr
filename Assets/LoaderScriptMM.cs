@@ -18,7 +18,7 @@ public class LoaderScriptMM : MonoBehaviour
     {
         transition.SetTrigger("Start");
 
-        yield return new WaitForSeconds(4);
+        yield return new WaitForSeconds(2);
 
         SceneManager.LoadScene(level);
     }
