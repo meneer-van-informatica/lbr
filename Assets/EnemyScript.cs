@@ -139,7 +139,7 @@ public class EnemyScript : MonoBehaviour
         //Spawns a "fireball"
         if (!dead)
         {   
-            var newBall = Instantiate(fireball, new Vector3(Enemy.position.x, Enemy.position.y + ballOffset, 0), Quaternion.identity);
+            var newBall = Instantiate(fireball, new Vector3(Enemy.position.x, Enemy.position.y + ballOffset, -1), Quaternion.identity);
             script = newBall.GetComponent<fireballScript>();
             script.shootThroughWall = shootThroughWall;
             script.enemy = gameObject;

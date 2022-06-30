@@ -225,4 +225,12 @@ public class PlayerMovement : MonoBehaviour
         yield return new WaitForSeconds(2);
         SceneManager.LoadScene("win");
     }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.name == "POWERPAD")
+        {
+            speed = 45;
+        }
+    }
 }
