@@ -116,7 +116,7 @@ public class PlayerMovement : MonoBehaviour
             jumpCount = 0; 
             if(Input.GetAxisRaw("Vertical") < 0){
                 body.gravityScale = 15;
-                Debug.Log('s');
+                //Debug.Log('s');
             }else{
             body.gravityScale = 0;
             }
@@ -129,7 +129,7 @@ public class PlayerMovement : MonoBehaviour
             timer -= Time.fixedDeltaTime;
             if(timer <= 0){
                 jumpCount = 0; //Reset jump counter
-                Debug.Log("RESET");
+                //Debug.Log("RESET");
             }
         }
     }
@@ -173,7 +173,7 @@ public class PlayerMovement : MonoBehaviour
             }else if(!(jumpCount >= maxJumps)){
                 body.velocity = new Vector2(body.velocity.x,jumpPower);
                 jumpCount++;
-                Debug.Log("JUMP");
+                //Debug.Log("JUMP");
                 timer = 0.05f;
             }
         }

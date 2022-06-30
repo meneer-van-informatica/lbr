@@ -5,7 +5,6 @@ public class PlayerRespawn : MonoBehaviour
     [SerializeField] private AudioClip checkpoint;
     private Transform currentCheckpoint;
     private Health playerHealth;
-
     public GameObject spawnPoint;
 
     private void Awake()

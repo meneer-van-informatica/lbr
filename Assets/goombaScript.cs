@@ -17,8 +17,12 @@ public class goombaScript : MonoBehaviour
     public Transform tf;
     private float startDelay = 0.5f;
     private bool start = false;
-    private bool grounded = true;
     private float deadDelay = 1f;
+
+    public Transform groundCheck;
+    private float GC_width = 1.1f;
+    private float GC_height = 0.3f;
+    public LayerMask groundLayer;
 
     // Start is called before the first frame update
     void Start()
@@ -50,26 +54,27 @@ public class goombaScript : MonoBehaviour
         {
             if (tf.position.x < leftBoundary || tf.position.x > rightBoundary)
             {
+
+                //So theoretically the rotation is reversed now, but because Casper fucked the animation up it works
                 if (direction == 1)
                 {
                     direction = -1;
-                    tf.eulerAngles = new Vector3(0, 0, 0);
+                    tf.eulerAngles = new Vector3(0, 180, 0);
                 }
                 else
                 {
                     direction = 1;
-                    tf.eulerAngles = new Vector3(0, 180, 0);
+                    tf.eulerAngles = new Vector3(0, 0, 0);
                 }
             }
         }
 
-        if (start && !dead && grounded)
+        if (start && !dead && isGrounded())
         {
             rb.velocity = new Vector2(direction * runSpeed, 0);
             //Debug.Log("walking");
-            //rb.AddForce(tf.right * runSpeed);
         }
-        else if (start && !dead && !grounded)
+        else if (start && !dead && !isGrounded())
         {
             rb.velocity = new Vector2(direction * runSpeed/2, fallSpeed);
             //Debug.Log("falling");
@@ -100,32 +105,22 @@ public class goombaScript : MonoBehaviour
      {  
         if (dead){return;}
 
+
         if (direction == 1)
         {
             direction = -1;
-            tf.eulerAngles = new Vector3(0, 0, 0);
+            tf.eulerAngles = new Vector3(0, 180, 0);
         }
         else
         {
             direction = 1;
-            tf.eulerAngles = new Vector3(0, 180, 0);
+            tf.eulerAngles = new Vector3(0, 0, 0);
         }
-
-        //Debug.Log(direction);
-
-         if (collision.gameObject.layer == 8)
-         {
-            grounded = true;
-            //Debug.Log("Grounded");
-         }
      }
 
-     void OnCollisionExit2D(Collision2D collision)
-     {
-         if (collision.gameObject.layer == 8)
-         {
-            grounded = false;
-            //Debug.Log("Not grounded");
-         }
-     }
+     public bool isGrounded()
+    {
+        RaycastHit2D raycastHit = Physics2D.BoxCast(groundCheck.position, new Vector3(GC_width, GC_height, 0), 0, Vector2.down, 0.1f, groundLayer);
+        return raycastHit.collider != null;
+    }
 }

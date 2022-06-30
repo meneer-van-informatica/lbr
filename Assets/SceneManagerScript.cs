@@ -12,6 +12,11 @@ public class SceneManagerScript : MonoBehaviour
         scriptLoad.LoadAnimation("MainMenu");
     }
 
+    public void loadSettings()
+    {
+        scriptLoad.LoadAnimation("Settings");
+    }
+
     public void loadLevelselect()
     {
         scriptLoad.LoadAnimation("levelselect");
@@ -29,7 +34,7 @@ public class SceneManagerScript : MonoBehaviour
 
     public void loadWiskunde1()
     {
-        
+        scriptLoad.LoadAnimation("Wiskundeklaar");
     }
 
     public void loadBio1()

@@ -5,10 +5,10 @@ using UnityEngine;
 public class goombaSpawn : MonoBehaviour
 {
     public GameObject goomba1;
-    public GameObject goomba2;
-    public GameObject goomba3;
+    //public GameObject goomba2;
+    //public GameObject goomba3;
 
-    private int goombaIndex = 1;
+    //private int goombaIndex = 1;
 
     public Transform tf;
 
@@ -25,7 +25,9 @@ public class goombaSpawn : MonoBehaviour
         {
             ready = false;
             StartCoroutine(delay());
+            Instantiate(goomba1, new Vector3(tf.position.x, tf.position.y, 0), Quaternion.identity);
 
+            /*
             if (goombaIndex == 1)
             {
                 Instantiate(goomba1, new Vector3(tf.position.x, tf.position.y, 0), Quaternion.identity);
@@ -43,6 +45,7 @@ public class goombaSpawn : MonoBehaviour
             }else{
                 goombaIndex++;
             }
+            */
         }
     }
     IEnumerator delay() 

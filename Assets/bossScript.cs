@@ -90,18 +90,6 @@ public class bossScript : MonoBehaviour
         StartCoroutine(vertical());
     }
 
-    void Update()
-    {
-        if (isGrounded())
-        {
-            renderer.color = black;
-        }
-        else
-        {
-            renderer.color = standard;
-        }
-    }
-
     private fireballScript ballScript;
 
     void FixedUpdate()

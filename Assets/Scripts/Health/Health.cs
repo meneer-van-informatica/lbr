@@ -51,7 +51,7 @@ public class Health : MonoBehaviour
                 anim.SetTrigger("die");
 
                 dead = true;
-                SoundManager.instance.PlaySound(deathSound);
+                //SoundManager.instance.PlaySound(deathSound);
             }
         }
     }
@@ -111,9 +111,9 @@ public class Health : MonoBehaviour
         {
             TakeDamage(0.5f);
         }
-        else if (other.gameObject.tag == "Potion" && currentHealth < 3)
+        else if (other.gameObject.tag == "Potion" && currentHealth < 2.5)
         {
-            currentHealth += 0.5f;
+            currentHealth += 1f;
         }
     }
 }
